@@ -62,6 +62,22 @@ paths:
                                 #     releaseDate:
                                 #         type: string
                                 #         format: date
+            responses:
+                "200":
+                    description: the created or updated books
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Book"
+                                    # type: object
+                                    # properties:
+                                    #     id:
+                                    #         type: string
+                                    #     bookName:
+                                    #         type: string
+                                    #         description: the book name
 components:
     schemas:
         Book:
