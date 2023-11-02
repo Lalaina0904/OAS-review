@@ -1,0 +1,91 @@
+# specification API
+openapi: 3.1.0
+
+info:
+    title: Revision API
+    version: 1.0.0
+    description: API that manange a library
+
+servers:
+    - url: http://revision.com
+      description: this is the Url of the server
+
+paths:
+/books:
+    get:
+        summary: Get all books
+        description: Return all books ordered by author
+        operationId: getBooks
+        parameters:
+            - in: query
+              name: bookName
+              description: filter the return books by name
+              required: false
+              schema:
+                  type: string
+        responses:
+            "200":
+                description: the returned books
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: "#/components/schemas/Book"
+                                # type: object
+                                # properties:
+                                #     id:
+                                #         type: string
+                                #     bookName:
+                                #         type: string
+                                #         description: the book name
+
+    put:
+        summary: Create or Update of a list of books
+        operationId: crupdateBooks
+        requestBody:
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/Book"
+                            # type: object
+                            # properties:
+                            #     id:
+                            #         type: string
+                            #     bookName:
+                            #         type: string
+                            #     author:
+                            #         type: string
+                            #     pageNumbers:
+                            #         type: integer
+                            #     releaseDate:
+                            #         type: string
+                            #         format: date
+components:
+    schemas:
+        Book:
+            type: object
+            properties:
+                id:
+                    type: string
+                bookName:
+                    type: string
+                author:
+                    type: string
+                pageNumbers:
+                    type: integer
+                releaseDate:
+                    type: string
+                    format: date
+                topic:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Topic"
+        Topic:
+            type: string
+            enum:
+                - ROMANCE
+                - COMEDY
+                - OTHER
